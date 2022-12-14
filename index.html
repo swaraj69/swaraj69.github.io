@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Volunteer Recruitment Form</title>
+<style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f1f1f1;
+    }
+  
+    h1 {
+      text-align: center;
+      color: #333;
+    }
+  
+    form {
+      max-width: 500px;
+      margin: auto;
+      padding: 20px;
+      background-color: #fff;
+      border: 1px solid #ddd;
+    }
+  
+    p {
+      margin-top: 10px;
+    }
+  
+    input[type=text] {
+      width: 100%;
+      padding: 12px;
+      box-sizing: border-box;
+    }
+  
+    input[type=submit] {
+      background-color: #4CAF50;
+      color: white;
+      padding: 12px 20px;
+      border: none;
+      cursor: pointer;
+    }
+  
+    input[type=submit]:hover {
+      background-color: #45a049;
+    }
+  </style>
+  
+</head>
+<body>
+<h1>Volunteer Recruitment Form</h1>
+
+<!-- Add logo here -->
+<img src="logo.png" alt="Logo" width="200" height="200">
+<form action="ask.php" method="post">
+<form onsubmit="measureTypingSpeed()">
+<p>1. Name: <input type="text" name="name"></p>
+<p>2. Address: <input type="text" name="address"></p>
+<p>3. Class: <input type="text" name="class"></p>
+<p>4. Section: <input type="text" name="section"></p>
+<p>5. Typing Speed Test:
+<script>
+    // Define an array of sentences
+    var sentences = [
+      "The quick brown fox jumps over the lazy dog.",
+      "She sells seashells by the seashore.",
+      "The rain in Spain stays mainly in the plain.",
+      "I saw Susie sitting in a shoe shine shop.",
+      "How can a clam cram in a clean cream can?",
+      "A proper copper coffee pot."
+    ];
+    
+    // Generate 6 random sentences
+    var randomSentences = [];
+    for (var i = 0; i < 6; i++) {
+      // Generate a random number between 0 and the length of the sentences array
+      var randomIndex = Math.floor(Math.random() * sentences.length);
+    
+      // Add the sentence at the random index to the randomSentences array
+      randomSentences.push(sentences[randomIndex]);
+    }
+    
+    // Display the random sentences
+    document.write(randomSentences.join("<br>"));
+</script>
+<input type="text" name="typing_test"></p>
+
+<script>
+    function measureTypingSpeed() {
+  // Get the input element where the user types the sentences
+  var inputElement = document.querySelector("input[name=typing_test]");
+
+  // Get the text of the sentences the user needs to type
+  var sentences = "The quick brown fox jumps over the lazy dog. She sells seashells by the seashore. The rain in Spain stays mainly in the plain. I saw Susie sitting in a shoe shine shop. How can a clam cram in a clean cream can? A proper copper coffee pot.";
+
+  // Calculate the time it takes for the user to type the sentences
+  var startTime = Date.now();
+  var endTime = Date.now();
+  while (inputElement.value != sentences) {
+    endTime = Date.now();
+  }
+
+  // Calculate the typing speed in words per minute
+  var elapsedTime = endTime - startTime;
+  var words = sentences.split(" ").length;
+  var typingSpeed = Math.round(words / (elapsedTime / 1000) * 60);
+
+  // Display the typing speed
+  alert("Your typing speed is: " + typingSpeed + " words per minute");
+}
+
+</script>
+
+<input type="submit" value="Submit">
+</form> 
+
+</body>
+</html>
