@@ -50,7 +50,7 @@
 
 <!-- Add logo here -->
 <img src="logo.png" alt="Logo" width="200" height="200">
-<form onsubmit="return !!(saveFormResponses() & measureTypingSpeed());">
+<<form onsubmit="return !!(sendFormResponsesToGoogleSheets() & openSubmissionPage() & measureTypingSpeed());">
 <p>1. Name: <input type="text" name="name"></p>
 <p>2. Address: <input type="text" name="address"></p>
 <p>3. Class: <input type="text" name="class"></p>
@@ -107,6 +107,53 @@
 }
 
 </script>
+
+<script>
+    function openSubmissionPage() {
+  // Open a new window with the submission page
+  window.open("submission.html", "_blank");
+
+  // Return false to prevent the form from being submitted
+  return false;
+}
+</script>
+
+<script>
+    function sendFormResponsesToGoogleSheets() {
+    // Replace with your own Google Sheets API key
+    var API_KEY = "YOUR_API_KEY";
+  
+    // Replace with the ID of your Google Sheets file
+    var SPREADSHEET_ID = "1zVvU0_VzrjmcOl33E4BOKhlsGt26cQQVnpV8R4AJvSw";
+  
+    // Replace with the name of the sheet where you want to add the data
+    var SHEET_NAME = "Sheet1";
+  
+// Get the form responses
+var name = document.querySelector("input[name=name]").value;
+  var address = document.querySelector("input[name=address]").value;
+  var class = document.querySelector("input[name=class]").value;
+  var section = document.querySelector("input[name=section]").value;
+  var typing_speed = document.querySelector("input[name=typing_speed]").value;
+
+  // Build the request body for the Google Sheets API
+  var requestBody = {
+    majorDimension: "ROWS",
+    values: [
+      [name, address, class, section, typing_speed],
+    ],
+  };
+
+  // Send a request to the Google Sheets API to append the data
+  var request = new XMLHttpRequest();
+  request.open("POST", "https://sheets.googleapis.com/v4/spreadsheets/" + SPREADSHEET_ID + "/values/" + SHEET_NAME + ":append?key=" + API_KEY);
+  request.setRequestHeader("Content-Type", "application/json");
+  request.send(JSON.stringify(requestBody));
+
+  // Return false to prevent the form from being submitted
+  return false;
+}
+  </script>
 
 <input type="submit" value="Submit">
 </form> 
